@@ -22,6 +22,7 @@ interface Transaction {
   spUsdValue: number;
   refundStatus: string;
   refundedAmount: number;
+  status: string;
 }
 
 interface TransactionDrawerProps {
@@ -94,6 +95,24 @@ export function TransactionDrawer({ transaction, onClose }: TransactionDrawerPro
               <div>
                 <div className="text-sm text-gray-600">Service Date</div>
                 <div className="text-gray-900 mt-1">{transaction.serviceDate}</div>
+              </div>
+              <div>
+                <div className="text-sm text-gray-600">Transaction Status</div>
+                <div className="mt-1">
+                  <span
+                    className={`inline-flex px-2 py-1 text-xs rounded-full ${
+                      transaction.status === 'COMPLETED'
+                        ? 'bg-green-100 text-green-700'
+                        : transaction.status === 'REFUNDED'
+                        ? 'bg-red-100 text-red-700'
+                        : transaction.status === 'PENDING'
+                        ? 'bg-yellow-100 text-yellow-700'
+                        : 'bg-gray-100 text-gray-700'
+                    }`}
+                  >
+                    {transaction.status}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
