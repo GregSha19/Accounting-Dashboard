@@ -9,7 +9,7 @@ const mockTransactions = [
     id: 'TXN-2024-001234',
     orderId: 'ORD-789456',
     tenant: 'Air Shop',
-    supplier: 'Marriott Hotels',
+    supplier: 'ONE Company',
     category: 'Hotels',
     clientOperator: 'Air Shop Inc.',
     userTier: 'Gold',
@@ -31,12 +31,13 @@ const mockTransactions = [
     refundStatus: 'None',
     refundedAmount: 0,
     isRefundable: true,
+    status: 'COMPLETED',
   },
   {
     id: 'TXN-2024-001235',
     orderId: 'ORD-789457',
     tenant: 'Crypto.com',
-    supplier: 'GetYourGuide',
+    supplier: 'Superlogic',
     category: 'Experiences',
     clientOperator: 'Crypto.com',
     userTier: 'Premium',
@@ -58,6 +59,7 @@ const mockTransactions = [
     refundStatus: 'None',
     refundedAmount: 0,
     isRefundable: true,
+    status: 'PENDING',
   },
   {
     id: 'TXN-2024-001236',
@@ -85,6 +87,7 @@ const mockTransactions = [
     refundStatus: 'Refunded',
     refundedAmount: 450.00,
     isRefundable: false,
+    status: 'REFUNDED',
   },
 ];
 
@@ -94,7 +97,7 @@ export function TransactionsTab() {
   const [includeTestTransactions, setIncludeTestTransactions] = useState(false);
 
   const tenantOptions = ['Air Shop', 'Crypto.com', 'Other'];
-  const supplierOptions = ['Marriott Hotels', 'GetYourGuide', 'Ticketmaster'];
+  const supplierOptions = ['Superlogic', 'ONE Company', 'BookIt'];
   const tierOptions = ['Basic', 'Gold', 'Premium'];
   const categoryOptions = ['Hotels', 'Experiences', 'Tickets', 'Tours', 'Flights'];
   const paymentOptions = ['Card', 'Crypto'];
@@ -214,6 +217,9 @@ export function TransactionsTab() {
                   Refund Status
                 </th>
                 <th className="px-4 py-3 text-center text-xs text-gray-600 uppercase tracking-wider whitespace-nowrap">
+                  Status
+                </th>
+                <th className="px-4 py-3 text-center text-xs text-gray-600 uppercase tracking-wider whitespace-nowrap">
                   Actions
                 </th>
               </tr>
@@ -291,6 +297,21 @@ export function TransactionsTab() {
                       }`}
                     >
                       {transaction.refundStatus}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-center whitespace-nowrap">
+                    <span
+                      className={`inline-flex px-2 py-1 text-xs rounded-full ${
+                        transaction.status === 'COMPLETED'
+                          ? 'bg-green-100 text-green-700'
+                          : transaction.status === 'REFUNDED'
+                          ? 'bg-red-100 text-red-700'
+                          : transaction.status === 'PENDING'
+                          ? 'bg-yellow-100 text-yellow-700'
+                          : 'bg-gray-100 text-gray-700'
+                      }`}
+                    >
+                      {transaction.status}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-center whitespace-nowrap">
